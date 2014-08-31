@@ -1,0 +1,6 @@
+Digital-7.ttf
+	http://www.styleseven.com
+
+whistle.wav
+	http://www.freesound.org/people/MentalSanityOff/sounds/218318/
+	CC0 1.0

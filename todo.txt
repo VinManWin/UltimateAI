@@ -1,0 +1,42 @@
+- refactor scene/logic
+
+[-] call scripts in random order
+
+- important play improvements
+	[-] prevent players from leaving the field
+	[-] prevent players from overlaping the possessing player
+	[-] check if formation is valid
+
+- add logfile (for each script) and entries
+	[-] if "setSpeed" fails => check for movement while possessing the disc, prevent it and write warning to respective logfile
+	[-] if "shoot" fails
+	[-] if "snatch" fails
+	[-] on "print" (instead of output to console)
+	[-] print time to logfile
+
+[-] find better solution for choice of starting team (initial possession)
+	[-] possibly shooting disc to any direction at the start
+
+[-] improve game/match feeling
+	- countdown before play starts/resumes
+	[-] pause after score
+
+[-] max/min speed for disc/players
+	[-] add globals
+	[-] add info for scripter if he tries to shoot/setSpeed to fast; clamp scripter input
+
+- add optional metadata in script
+	- team name, scripter name, version
+
+- add possibility for zipped files (including multiple script files; one of which will be executed)
+
+- implement time control for execution duration of the scripts
+
+- implement game statistics
+	- play statistics (possession, player positioning, passing accuracy, average pass length)
+	- script statistics (execution duration)
+
+- handle exceptions
+	[-] scriptfile not found
+
+- profiling and performance optimization
