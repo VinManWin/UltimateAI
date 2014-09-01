@@ -71,3 +71,6 @@ event handler
 	onOpponentSnatch(score)
 		- is called after your opponent snatched the disc
 		- is provided a boolean 'score' stating whether your opponent scored with that snatch
+
+	onBounce()
+		- is called after the disc bounced of the bounds

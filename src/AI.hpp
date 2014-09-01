@@ -67,6 +67,7 @@ public:
 	void onDiscWithinReach(unsigned int playerNumber);
 	void onOpponentShot();
 	void onOpponentSnatch(bool score);
+	void onBounce();
 
 	void log(std::string msg, Logfile::EntryType et);
 };

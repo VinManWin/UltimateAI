@@ -111,6 +111,12 @@ void Match::update(sf::Time t)
 			displacement += v;
 		}
 
+		if (travel.size() > 1)
+		{
+			teamA->getScript().onBounce();
+			teamB->getScript().onBounce();
+		}
+
 		teamA->movePlayers(t, field.getPlayBounds(), disc.getPossessingPlayer());
 		teamB->movePlayers(t, field.getPlayBounds(), disc.getPossessingPlayer());
 

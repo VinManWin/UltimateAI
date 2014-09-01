@@ -280,6 +280,16 @@ void AI::onOpponentSnatch(bool score)
 	}
 }
 
+void AI::onBounce()
+{
+	std::string funcName = "onBounce";
+	lua_getglobal(l, funcName.c_str());
+	if (lua_isfunction(l, -1))
+	{
+		tryCall(funcName, 0, 0);
+	}
+}
+
 void AI::log(std::string msg, Logfile::EntryType et)
 {
 	logfile.write(msg, et);
