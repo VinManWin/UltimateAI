@@ -79,7 +79,7 @@ void Player::setSpeed(sf::Vector2f v)
 {
 	float length = clamp(len(v), 0.f, getMaxSpeed());
 
-	MobileObject::setSpeed(norm(v) * length);
+	MobileObject::setVelocity(norm(v) * length);
 }
 
 float Player::getMaxSpeed() const

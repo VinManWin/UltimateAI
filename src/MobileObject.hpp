@@ -7,11 +7,11 @@ namespace sf { class Time; }
 
 class MobileObject : public sf::Transformable, public sf::Drawable
 {
-	sf::Vector2f speed;
+	sf::Vector2f velocity;
 
 public:
 	sf::Vector2f getDisplacement(sf::Time t);
-	void setSpeed(sf::Vector2f speed);
-	sf::Vector2f getSpeed() const;
+	void setVelocity(sf::Vector2f velocity);
+	sf::Vector2f getVelocity() const;
 };
 

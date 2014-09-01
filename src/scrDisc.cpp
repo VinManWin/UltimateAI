@@ -31,7 +31,7 @@ namespace scr
 		scr::vector2::createOnStack(l);
 		lua_settable(l, -3);
 
-		lua_pushstring(l, "speed");
+		lua_pushstring(l, "velocity");
 		scr::vector2::createOnStack(l);
 		lua_settable(l, -3);
 
@@ -66,9 +66,9 @@ namespace scr
 		scr::vector2::setOnStack(l, disc.position);
 		lua_pop(l, 1);
 
-		lua_pushstring(l, "speed");
+		lua_pushstring(l, "velocity");
 		lua_gettable(l, -2);
-		scr::vector2::setOnStack(l, disc.speed);
+		scr::vector2::setOnStack(l, disc.velocity);
 		lua_pop(l, 1);
 
 		lua_pushstring(l, "radius");

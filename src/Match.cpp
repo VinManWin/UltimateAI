@@ -106,7 +106,7 @@ void Match::update(sf::Time t)
 		sf::Vector2f displacement;
 		for (sf::Vector2f v : travel)
 		{
-			disc.setSpeed(v * len(disc.getSpeed()) / len(v)); // very dirty; improve later
+			disc.setVelocity(v * len(disc.getVelocity()) / len(v)); // very dirty; improve later
 			disc.move(v);
 			displacement += v;
 		}
@@ -371,11 +371,11 @@ void Match::capturePlayers()
 		Player& pB = teamB->getPlayer(num);
 
 
-		teamA->getScript().set(scr::Player{ scr::Team::Mine, num, pA.getPosition(), pA.getSpeed() });
-		teamA->getScript().set(scr::Player{ scr::Team::Opponent, num, pB.getPosition(), pB.getSpeed() });
+		teamA->getScript().set(scr::Player{ scr::Team::Mine, num, pA.getPosition(), pA.getVelocity() });
+		teamA->getScript().set(scr::Player{ scr::Team::Opponent, num, pB.getPosition(), pB.getVelocity() });
 
-		teamB->getScript().set(scr::Player{ scr::Team::Opponent, num, -pA.getPosition(), -pA.getSpeed() });
-		teamB->getScript().set(scr::Player{ scr::Team::Mine, num, -pB.getPosition(), -pB.getSpeed() });
+		teamB->getScript().set(scr::Player{ scr::Team::Opponent, num, -pA.getPosition(), -pA.getVelocity() });
+		teamB->getScript().set(scr::Player{ scr::Team::Mine, num, -pB.getPosition(), -pB.getVelocity() });
 	}
 }
 
@@ -385,13 +385,13 @@ void Match::captureDisc()
 	{
 		Player& p = *disc.getPossessingPlayer();
 
-		teamA->getScript().set(scr::Disc{ true, p.getTeamId() == teamA->getId() ? scr::Team::Mine : scr::Team::Opponent, p.getNumber(), p.getPosition(), p.getSpeed() });
-		teamB->getScript().set(scr::Disc{ true, p.getTeamId() == teamB->getId() ? scr::Team::Mine : scr::Team::Opponent, p.getNumber(), -p.getPosition(), -p.getSpeed() });
+		teamA->getScript().set(scr::Disc{ true, p.getTeamId() == teamA->getId() ? scr::Team::Mine : scr::Team::Opponent, p.getNumber(), p.getPosition(), p.getVelocity() });
+		teamB->getScript().set(scr::Disc{ true, p.getTeamId() == teamB->getId() ? scr::Team::Mine : scr::Team::Opponent, p.getNumber(), -p.getPosition(), -p.getVelocity() });
 	}
 	else
 	{
-		teamA->getScript().set(scr::Disc{ false, scr::Team::Opponent, 0, disc.getPosition(), disc.getSpeed() });
-		teamB->getScript().set(scr::Disc{ false, scr::Team::Opponent, 0, -disc.getPosition(), -disc.getSpeed() });
+		teamA->getScript().set(scr::Disc{ false, scr::Team::Opponent, 0, disc.getPosition(), disc.getVelocity() });
+		teamB->getScript().set(scr::Disc{ false, scr::Team::Opponent, 0, -disc.getPosition(), -disc.getVelocity() });
 	}
 }
 

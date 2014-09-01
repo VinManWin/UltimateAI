@@ -14,15 +14,6 @@ formation =
 function setup(startingTeam)
 
 	local startingFormation = {}
-	--{
-	--	Vector2.new(-field.zoneLvl - 14, -field.height * 1/10),
-	--	Vector2.new(-field.zoneLvl - 14, field.height * 1/10),
-	--	Vector2.new(-field.zoneLvl - 11, -field.height * 3/10),
-	--	Vector2.new(-field.zoneLvl - 11, field.height * 3/10),
-	--	Vector2.new(-field.zoneLvl - 7, 0),
-	--	Vector2.new(-field.zoneLvl, -field.height * 1/6),
-	--	Vector2.new(-field.zoneLvl, field.height * 1/6)
-	--}
 	
 	local offset = field.height/8
 
@@ -31,7 +22,6 @@ function setup(startingTeam)
 		p.targetPos = formation[i]
 		p.holdPos = false
 
-		--local factor = -(2*((i+1)%2)-1) * i + math.ceil(i/2) * (2*((i+1)%2)-1)
 		local factor = -(2*((i+1)%2)-1) * (math.ceil(i/2) - i)
 		startingFormation[i] = Vector2.new(-field.zoneLvl, offset * factor)
 	end
@@ -46,13 +36,6 @@ end
 function update(elapsedSeconds)
 	for i = 1, 7 do
 		p = myTeam.players[i]
-		--if not p.isInterceptor then
-			--if disc.possessingPlayer == opponentTeam.players[i] then
-				--p.targetPos = opponentTeam.players[i].position + Vector2.new(-4, 0)
-			--else
-				--p.targetPos = opponentTeam.players[i].position + (disc.position - opponentTeam.players[i].position):norm() * 4
-			--end
-		--end
 	end
 
 	handleTargetPositions()
@@ -79,10 +62,10 @@ function handleTargetPositions()
 		p = myTeam.players[i]
 		dist = p.targetPos - p.position
 
-		if (dist:length() > 0.1) --[[and not p.holdPos]] then
-			p:setSpeed(dist:norm() * Player.maxSpeed)
+		if (dist:length() > 0.1) then
+			p:setVelocity(dist:norm() * Player.maxSpeed)
 		else
-			p:setSpeed(Vector2.new())
+			p:setVelocity(Vector2.new())
 			p.isInterceptor = false
 			p.targetPos = formation[i]
 		end
@@ -117,7 +100,6 @@ function playTo(possessingPlayer, targetPlayer)
 	possessingPlayer:shoot((targetPlayer.position - possessingPlayer.position):norm() * Disc.maxSpeed)
 
 	possessingPlayer.holdPos = false
-	--targetPlayer.holdPos = true
 
 	handleInterception()
 end
@@ -145,10 +127,10 @@ end
 
 function calcInterception(player)
 	local dab = player.position - disc.position
-	local alpha = slopeAngle(disc.speed) - slopeAngle(dab)
+	local alpha = slopeAngle(disc.velocity) - slopeAngle(dab)
 	local cosalpha = math.cos(alpha)
 	local ab = dab:length()
-	local vd = disc.speed:length()
+	local vd = disc.velocity:length()
 	local vp = Player.maxSpeed
 	local radicand = (vd * cosalpha) * (vd * cosalpha) - (vd * vd - vp * vp)
 	local possible = radicand >= 0
@@ -158,7 +140,7 @@ function calcInterception(player)
 
 	if possible then
 		t = ab * (-math.sqrt(radicand) + vd * cosalpha)/(vd * vd - vp * vp)
-		inPos = disc.position + disc.speed * t
+		inPos = disc.position + disc.velocity * t
 		possible = possible and t >= 0
 	end
 
@@ -200,4 +182,27 @@ end
 
 function isInField(v)
 	return math.abs(v.x) <= field.boundLvl and math.abs(v.y) <= field.boundExtent
+end
+
+function print_r(arr, indentLevel)
+    local str = ""
+    local indentStr = "#"
+
+    if(indentLevel == nil) then
+        print(print_r(arr, 0))
+        return
+    end
+
+    for i = 0, indentLevel do
+        indentStr = indentStr.."\t"
+    end
+
+    for index,value in pairs(arr) do
+        if type(value) == "table" then
+            str = str..indentStr..index..": \n"..print_r(value, (indentLevel + 1))
+        else 
+            str = str..indentStr..index..": "..value.."\n"
+        end
+    end
+    print(str)
 end

@@ -4,15 +4,15 @@
 
 sf::Vector2f MobileObject::getDisplacement(sf::Time t)
 {
-	return speed * t.asSeconds();
+	return velocity * t.asSeconds();
 }
 
-void MobileObject::setSpeed(sf::Vector2f speed)
+void MobileObject::setVelocity(sf::Vector2f speed)
 {
-	this->speed = speed;
+	this->velocity = speed;
 }
 
-sf::Vector2f MobileObject::getSpeed() const
+sf::Vector2f MobileObject::getVelocity() const
 {
-	return speed;
+	return velocity;
 }

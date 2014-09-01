@@ -90,7 +90,7 @@ void AI::set(const scr::Player& player)
 	lua_pushcfunction(l, snatchStatic);
 	lua_settable(l, -3);
 
-	lua_pushstring(l, "setSpeed");
+	lua_pushstring(l, "setVelocity");
 	lua_pushcfunction(l, setSpeedStatic);
 	lua_settable(l, -3);
 

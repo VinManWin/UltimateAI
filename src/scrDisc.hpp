@@ -12,7 +12,7 @@ namespace scr
 		Team::Owner owner;
 		unsigned int player;
 		sf::Vector2f position;
-		sf::Vector2f speed;
+		sf::Vector2f velocity;
 		float radius;
 
 		static void registerMetatable(lua_State* l);

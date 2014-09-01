@@ -32,7 +32,7 @@ namespace scr
 		scr::vector2::createOnStack(l);
 		lua_settable(l, -3);
 
-		lua_pushstring(l, "speed");
+		lua_pushstring(l, "velocity");
 		scr::vector2::createOnStack(l);
 		lua_settable(l, -3);
 
@@ -62,14 +62,10 @@ namespace scr
 		scr::vector2::setOnStack(l, player.position);
 		lua_pop(l, 1);
 
-		lua_pushstring(l, "speed");
+		lua_pushstring(l, "velocity");
 		lua_gettable(l, -2);
-		scr::vector2::setOnStack(l, player.speed);
+		scr::vector2::setOnStack(l, player.velocity);
 		lua_pop(l, 1);
-
-		lua_pushstring(l, "radius");
-		lua_pushnumber(l, player.radius);
-		lua_settable(l, -3);
 	}
 
 	void Player::push(lua_State* l, Team::Owner owner, unsigned int number)

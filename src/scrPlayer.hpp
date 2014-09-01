@@ -11,8 +11,7 @@ namespace scr
 		Team::Owner owner;
 		unsigned int number;
 		sf::Vector2f position;
-		sf::Vector2f speed;
-		float radius;
+		sf::Vector2f velocity;
 
 		static void registerMetatable(lua_State* l);
 		static void create(lua_State* l, Team::Owner owner, unsigned int number);

@@ -20,14 +20,14 @@ previouslyPossessingPlayer(nullptr)
 	circle.setOrigin(radius, radius);
 }
 
-void Disc::shoot(sf::Vector2f speed)
+void Disc::shoot(sf::Vector2f velocity)
 {
 	previouslyPossessingPlayer = possessingPlayer;
 	possessingPlayer = nullptr;
 
-	float length = clamp(len(speed), getMinSpeed(), getMaxSpeed());
+	float length = clamp(len(velocity), getMinSpeed(), getMaxSpeed());
 
-	setSpeed(norm(speed) * length);
+	setVelocity(norm(velocity) * length);
 }
 
 void Disc::snatch(Player& possessingPlayer)
@@ -36,7 +36,7 @@ void Disc::snatch(Player& possessingPlayer)
 	this->possessingPlayer = &possessingPlayer;
 
 	setPosition(possessingPlayer.getPosition());
-	setSpeed(sf::Vector2f(0, 0));
+	setVelocity(sf::Vector2f(0, 0));
 }
 
 sf::Color Disc::getColor() const
