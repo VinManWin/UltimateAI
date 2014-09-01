@@ -1,0 +1,73 @@
+types
+	As lua is not typesafe the following 'types' are just lua tables with specified metatables,
+	however they do provide different fields that are documented here.
+	
+	Vector2 (represents a 2D-vector)
+		- has fields for arithmetic operations with two Vector2s (x, -) and with a Vector2 and a Number (*, /)
+		- has a function 'length' that returns the length of the vector
+		- has a function 'norm' that returns the unit vector
+
+	Field (represents the field on which the match is played)
+		- has fields that hold information about the geometry of the field
+			(note that the center of the field is the geometrical origin)
+		- width
+		- height
+		- zoneWidth
+		- boundLvl (distance from the center to the left and right bounds)
+		- boundExtent (distance from the center to the top and bottom bounds)
+		- zoneLvl (distance from the center to the left and right zone)
+
+	Disc (represents the disc)
+		- position (Vector2 representing the position of the disc)
+		- velocity (Vector2 representing the velocity (i.e. the speed and direction) of the disc)
+
+	Team (represents a team)
+		- players (an array of all the players in the team; the index is identical with the number of the respective player)
+		- score (an integer representing the score that the team has achived in the match so far)
+
+	Player (represents a player)
+		- position (Vector2 representing the position of the player)
+		- velocity (Vector2 representing the velocity (i.e. the speed and direction) of the player)
+		- team (the team of which the player is a member)
+		- number (the number of the player)
+		- setVelocity(p, v) (function that sets the players 'p' velocity 'v')
+		- shoot(p, v) (function that shoots the disc with the given velocity 'v'; will do nothing if the player 'p' is not in possession of the disc)
+		- snatch(p) (function that snatches the disc; if the disc is within reach, the player 'p' will possess it after the call)
+
+globals
+	- field (the field; of type 'Field')
+	- disc (the disc; of type 'Disc')
+	- myTeam (your team; of type 'Team')
+	- opponentTeam (your opponent's team; of type 'Team'
+
+	- Vector2.new() (returns a new Vector2)
+	- Player.maxSpeed (number representing the maximum speed each player can attain)
+	- Player.radius (number representing the radius of each player)
+	- Disc.minSpeed (number representing the minimum speed the disc can attain)
+	- Disc.maxSpeed (number representing the maximum speed the disc can attain)
+	- Disc.radius (number representing the radius of the disc)
+	- print(...) (writs the given values to the logfile)
+
+event handler
+	getFormation(starting)
+		- is called before the match starts and before it restarts after one team scores.
+		- is provided a boolean 'starting' that is true if your team will be possessing the ball (i.e. the opponent just scored).
+		- is expected to return an array with seven elements of type 'Vector2' representing the initial positions of your players.
+
+	start()
+		- is called after the match starts/restarts
+
+	update(seconds)
+		- is called repeatedly while the match is running
+		- is provided a number 'seconds' representing the time that has passed since the last call of 'update'
+
+	onDiscWithinReach(player)
+		- is called when one of your players is close enough to the disc to snatch it
+		- is provided mentioned player
+
+	onOpponentShot()
+		- is called after your opponent shot the disc
+
+	onOpponentSnatch(score)
+		- is called after your opponent snatched the disc
+		- is provided a boolean 'score' stating whether your opponent scored with that snatch
