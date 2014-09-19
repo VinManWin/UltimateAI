@@ -21,8 +21,8 @@ public:
 	void setScore(unsigned int a, unsigned int b);
 	void increment(TeamId teamId);
 
-	sf::FloatRect Score::getLocalBounds() const;
-	sf::FloatRect Score::getGlobalBounds() const;
+	sf::FloatRect getLocalBounds() const;
+	sf::FloatRect getGlobalBounds() const;
 
 	void update(sf::Time t);
 
