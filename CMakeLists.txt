@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 macro(set_option var default type docstring)
     if(NOT DEFINED ${var})
         set(${var} ${default})
@@ -7,7 +9,7 @@ macro(set_option var default type docstring)
     set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
 endmacro()
 
-project(CMakeTest)
+project(UltimateAI)
 include_directories(${PROJECT_BINARY_DIR})
 set(EXECUTABLE_NAME UltimateAI)
 file(GLOB sources ${CMAKE_SOURCE_DIR}/src/*)
@@ -45,5 +47,4 @@ if(SFML_INC AND SFML_LIBS AND LUA_INC AND LUA_LIBS)
 	target_link_libraries(${EXECUTABLE_NAME} ${LUA_LIBS})
 
 	install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
-	file(COPY "res" DESTINATION "res")
 endif()
