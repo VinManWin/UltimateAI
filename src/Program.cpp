@@ -1,6 +1,7 @@
 #include "Program.hpp"
 
 #include <iostream>
+#include "make_unique.hpp"
 
 Program::Program(std::vector<std::string> args) :
 	wnd(sf::VideoMode(800, 600, 32), "Ultimate AI", 7, sf::ContextSettings(0,0,8,2,0)),
@@ -24,7 +25,7 @@ Program::Program(std::vector<std::string> args) :
 			std::cerr << "Could not open '" << args[2] << "'; continue using '" << fileB << "' instead." << std::endl;
 	}
 
-	match = std::make_unique<Match>(wnd, fileA, fileB);
+	match = unique<Match>(wnd, fileA, fileB);
 }
 
 void Program::run()

@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/System/Time.hpp>
 #include "utility.hpp"
+#include "make_unique.hpp"
 
 Team::Team(std::string file, TeamId id, sf::Color color, sf::Font& playerFont) :
 script(file, size),
@@ -12,7 +13,7 @@ id(id)
 	size_t i = 0;
 	for (auto& player : players)
 	{
-		player = std::make_unique<Player>(color, id, ++i, playerFont);
+		player = unique<Player>(color, id, ++i, playerFont);
 	}
 }
 

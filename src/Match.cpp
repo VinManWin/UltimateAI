@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Movement.hpp"
 #include "utility.hpp"
+#include "make_unique.hpp"
 
 
 Match::Match(sf::RenderWindow& wnd, std::string scriptA, std::string scriptB) :
@@ -19,12 +20,12 @@ disc(sf::Color::Red)
 	whistleSoundBuffer.loadFromFile("res/whistle.wav");
 	whistleSound.setBuffer(whistleSoundBuffer);
 
-	teamA = std::make_unique<Team>(scriptA, TeamId::TeamA, sf::Color::Black, playerFont);
-	teamB = std::make_unique<Team>(scriptB, TeamId::TeamB, sf::Color::White, playerFont);
+	teamA = unique<Team>(scriptA, TeamId::TeamA, sf::Color::Black, playerFont);
+	teamB = unique<Team>(scriptB, TeamId::TeamB, sf::Color::White, playerFont);
 
 	disc.setPosition(0, 0);
 
-	score = std::make_unique<Score>(scoreFont);
+	score = unique<Score>(scoreFont);
 	score->setPosition(0, -(int)field.height / 2 - 9);
 
 	fitViewToWindow();
