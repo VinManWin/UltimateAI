@@ -6,6 +6,7 @@
 	[-] prevent players from leaving the field
 	[-] prevent players from overlaping the possessing player
 	[-] check if formation is valid
+	- set 5 seconds limit for possession
 
 - add logfile (for each script) and entries
 	[-] if "setSpeed" fails => check for movement while possessing the disc, prevent it and write warning to respective logfile
