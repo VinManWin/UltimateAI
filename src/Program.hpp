@@ -5,9 +5,8 @@
 
 class Program
 {
-	sf::RenderWindow wnd;
 	bool keepRunning;
-
+	std::unique_ptr<sf::RenderWindow> wnd;
 	std::unique_ptr<Match> match;
 
 	void doOneFrame(sf::Time t);

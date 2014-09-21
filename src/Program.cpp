@@ -3,29 +3,47 @@
 #include <iostream>
 #include "make_unique.hpp"
 
+void showUsage(std::string arg0)
+{
+	std::cerr << "Usage: " << arg0 << " [scriptfileA [scriptfileB]]" << std::endl;
+}
+
+void checkFile(std::string& name, const std::string arg)
+{
+	if (std::ifstream(arg).good())
+		name = arg;
+	else
+		std::cerr << "Could not open '" << arg << "'; continue using '" << name << "' instead." << std::endl;
+}
+
 Program::Program(std::vector<std::string> args) :
-	wnd(sf::VideoMode(800, 600, 32), "Ultimate AI", 7, sf::ContextSettings(0,0,8,2,0)),
 	keepRunning(true)
 {
-	std::string fileA, fileB;
-
-	fileA = "res/scripts/default.lua";
-	fileB = fileA;
-
-	if (args.size() >= 3)
+	if (args[1] == "-h" || args[1] == "--help")
 	{
-		if (std::ifstream(args[1]).good())
-			fileA = args[1];
-		else
-			std::cerr << "Could not open '" << args[1] << "'; continue using '" << fileA << "' instead." << std::endl;
-
-		if (std::ifstream(args[2]).good())
-			fileB = args[2];
-		else
-			std::cerr << "Could not open '" << args[2] << "'; continue using '" << fileB << "' instead." << std::endl;
+		showUsage(args[0]);
+		keepRunning = false;
 	}
+	else
+	{
+		wnd = unique<sf::RenderWindow>(sf::VideoMode(800, 600, 32), "Ultimate AI", 7, sf::ContextSettings(0, 0, 8, 2, 0));
+		std::string fileA, fileB;
 
-	match = unique<Match>(wnd, fileA, fileB);
+		fileA = "res/scripts/default.lua";
+		fileB = fileA;
+
+		if (args.size() >= 2)
+		{
+			checkFile(fileA, args[1]);
+
+			if (args.size() >= 3)
+				checkFile(fileB, args[2]);
+		}
+
+		std::cout << "Playing: " << fileA << " vs. " << fileB << std::endl;
+
+		match = unique<Match>(*wnd, fileA, fileB);
+	}
 }
 
 void Program::run()
@@ -33,7 +51,7 @@ void Program::run()
 	sf::Clock clock;
 	sf::Time frameTime = sf::milliseconds(1000 / 60);
 
-	while (keepRunning && wnd.isOpen())
+	while (keepRunning && wnd->isOpen())
 	{
 		sf::Time t = clock.restart();
 
@@ -46,7 +64,7 @@ void Program::run()
 void Program::doOneFrame(sf::Time t)
 {
 	sf::Event e;
-	while (wnd.pollEvent(e))
+	while (wnd->pollEvent(e))
 	{
 		handleEvent(e);
 	}
@@ -74,8 +92,8 @@ void Program::update(sf::Time t)
 
 void Program::draw()
 {
-	wnd.clear();
+	wnd->clear();
 	match->draw();
 
-	wnd.display();
+	wnd->display();
 }
