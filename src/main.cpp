@@ -27,9 +27,8 @@ int main(int argc, const char* argv[])
 		std::stringstream s;
 		s << "message: \"" << ex.what() << "\"";
 		MessageBoxA(NULL, s.str().c_str(), "an exception occured", MB_ICONERROR | MB_OK);
-#else
-		std::cerr << "exception: " << ex.what() << std::endl;
 #endif
+		std::cerr << "exception: " << ex.what() << std::endl;
 	}
 
 	return 0;
